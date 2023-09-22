@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rep-events-dash",
+    "name": "🤡Reporting Event Dashboard",
+    "description": "This is a new version of the reporting event dashboard. It provides an overview of reporting events which are currently active. There are links to study dashboards and file viewer for examining the files. ",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/rep-events-dash/index.html"
+  },
+  {
+    "id": "dashboard",
+    "name": "Dashboard",
+    "description": "Old version of Reporting Event Dashboard.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/jobs/dashboard/dev/output/dashboard.html"
+  },
+  {
+    "id": "search-sas-progs",
+    "name": "🔍Search SAS programs",
+    "description": "Anna's app to search SAS programs on LSAF for text.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/search_sas_progs/search_sas_progs.html"
+  },
+  {
+    "id": "gadam-jobs",
+    "name": "📊GADAM jobs",
+    "description": "GADAM jobs that have run recently, and their status. Bars can be clicked on to open the log viewer for the selected job.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/gadam/documents/gadam_dshb/gadam_jobs/jobs.html"
+  },
+  {
+    "id": "star-docs",
+    "name": "STAR documentation",
+    "description": "SAS code documentation generated automatically by Doxygen from the SAS code comments. This is hosted on SharePoint. It must be manually re-generated when the code changes, and then uploaded to SharePoint.",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Programming%20documentation/html-1.0/index.aspx"
+  },
+  {
+    "id": "studies-info",
+    "name": "🏠Studies Info",
+    "description": "Study level dashboard showing how recently data has been updated.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/gadam/documents/gadam_dshb/study_info/studies_info.html"
+  },
+  {
+    "id": "gadam-data-refresh",
+    "name": "GADAM Data Refresh Events",
+    "description": "Dashboard focusing on the refreshing of data for GADAM. Shows SDTM, ADAM and Reports along with what days they were run on. Clicking provides detail for files.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/gadam/documents/gadam_dshb/gadam_events/gadam_dshb.html"
+  },
+  {
+    "id": "insight-studies",
+    "name": "Insight - studies",
+    "description": "Martijn's insight app.",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/insight/studies.aspx"
+  },
+  {
+    "id": "insight-tlfs",
+    "name": "Insight - TLF bundles",
+    "description": "Martijn's insight app.",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Final%20TLF%20bundles/folder_tree.aspx"
+  },
+  {
+    "id": "insight-ae",
+    "name": "Insight - AEs",
+    "description": "Martijn's insight app.",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/insight/ae.aspx"
+  },
+  {
+    "id": "lsaf-sync",
+    "name": "🐛LSAF sync",
+    "description": "Analysis of people using the LSAF sync app. Shows what they have synced from LSAF to their PC.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/lsafsync/app/index.html"
+  },
+  {
+    "id": "log-viewer",
+    "name": "Log viewer",
+    "description": "SAS log viewer which can be used to view logs on LSAF.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/logviewer/index.html"
+  },
+  {
+    "id": "file-viewer",
+    "name": "👻File viewer",
+    "description": "File viewer which can be used to view many files on LSAF. You can navigate the file system to find what you want.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html"
+  },
+  {
+    "id": "resource-management",
+    "name": "🔬Resource management",
+    "description": "This was the first attempt at making a dashboard for resource management. It is not used any more, but demonstrates some useful techniques that could be used in future apps.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/resourcemanagement/index.html"
+  },
+  {
+    "id": "study-dashboard",
+    "name": "🦙Study Dashboard",
+    "description": "This is the dashboard for a specific study, but you can navigate to other studies from here.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/dashstudy/index.html"
+  },
+  {
+    "id": "code-samples",
+    "name": "😯Code samples for producing Graphics",
+    "description": "You can see a range of examples of graphs & figures here, produced with either SAS or R. You can then copy the code for use in your own work as a starting point.",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Programming%20documentation/codesamples/index.aspx"
+  }
+]
