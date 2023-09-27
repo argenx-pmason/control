@@ -12,6 +12,12 @@
     "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/jobs/dashboard/dev/output/dashboard.html"
   },
   {
+    "id": "studies",
+    "name": "🙍🏼‍♂️Studies Resource Management",
+    "description": "Set key dates, assign resources and visualise this in Gantt charts.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/studies/index.html"
+  },
+  {
     "id": "search-sas-progs",
     "name": "🔍Search SAS programs",
     "description": "Anna's app to search SAS programs on LSAF for text.",
