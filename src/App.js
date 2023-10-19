@@ -28,7 +28,7 @@ import // DataGridPro,
 // GridRowEditStopReasons,
 // GridToolbarExport,
 "@mui/x-data-grid-pro";
-import { Info, OpenInNew, ZoomIn, ZoomOut } from "@mui/icons-material";
+import { Info, OpenInNew, ZoomIn, ZoomOut, Sort } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getJsonFile } from "./utility";
@@ -58,7 +58,16 @@ function App() {
     [openInfo, setOpenInfo] = useState(false),
     [width, setWidth] = useState(400),
     [urlPrefix, setUrlPrefix] = useState(null),
-    [links, setLinks] = useState([]);
+    [links, setLinks] = useState([]),
+    sort = (v) => {
+      const tempLinks = [...links];
+      tempLinks.sort((a, b) => {
+        if (a[v] < b[v]) return -1;
+        if (a[v] > b[v]) return 1;
+        return 0;
+      });
+      setLinks(tempLinks);
+    };
 
   // load links from json file
   useEffect(() => {
@@ -110,6 +119,26 @@ function App() {
             }}
           >{`${links.length} apps`}</Box>
           <Box sx={{ flexGrow: 1 }}></Box>
+          <Tooltip title="Sort by url">
+            <IconButton
+              color="warning"
+              onClick={() => {
+                sort("url");
+              }}
+            >
+              <Sort />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Sort by group">
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                sort("group");
+              }}
+            >
+              <Sort />
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Zoom in">
             <IconButton
               color="inherit"
@@ -202,6 +231,11 @@ function App() {
                 >
                   Open
                 </Button>
+                <Box sx={{ flex: 1 }}></Box>
+                <Box>
+                  Group:
+                  <b> {t.group}</b>
+                </Box>
               </CardActions>
             </Card>
           </Grid>
@@ -246,8 +280,39 @@ function App() {
         <DialogTitle>Info about this screen</DialogTitle>
         <DialogContent>
           <ul>
-            <li>Data comes from ...</li>
+            <li>
+              Data comes from:{" "}
+              <a
+                href="https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/control/links.json"
+                target="_blank"
+                rel="noreferrer"
+              >
+                links.json
+              </a>
+            </li>
           </ul>
+          <Tooltip title={"Email technical programmers"}>
+            <Button
+              sx={{
+                color: "blue",
+                border: 1,
+                borderColor: "blue",
+                borderRadius: 1,
+                padding: 0.4,
+                float: "right",
+              }}
+              onClick={() => {
+                window.open(
+                  "mailto:qs_tech_prog@argenx.com?subject=Question&body=This email was sent from: " +
+                    encodeURIComponent(href) +
+                    "%0D%0A%0D%0AMy question is:",
+                  "_blank"
+                );
+              }}
+            >
+              Email
+            </Button>
+          </Tooltip>
         </DialogContent>
       </Dialog>
     </div>
