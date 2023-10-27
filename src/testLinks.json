@@ -7,13 +7,6 @@
     "group": "study"
   },
   {
-    "id": "dashboard",
-    "name": "Dashboard",
-    "description": "Old version of Reporting Event Dashboard.",
-    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/jobs/dashboard/dev/output/dashboard.html",
-    "group": "study"
-  },
-  {
     "id": "studies",
     "name": "🙍🏼‍♂️ Studies Resource Management",
     "description": "Set key dates, assign resources and visualise this in Gantt charts.",
@@ -36,7 +29,7 @@
   },
   {
     "id": "gadam-data-refresh",
-    "name": "GADAM Data Refresh Events",
+    "name": "🐶 GADAM Data Refresh Events",
     "description": "Dashboard focusing on the refreshing of data for GADAM. Shows SDTM, ADAM and Reports along with what days they were run on. Clicking provides detail for files.",
     "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/gadam/documents/gadam_dshb/gadam_events/gadam_dshb.html",
     "group": "gadam"
@@ -50,9 +43,9 @@
   },
   {
     "id": "star-docs",
-    "name": "STAR documentation",
+    "name": "⭐ STAR documentation",
     "description": "SAS code documentation generated automatically by Doxygen from the SAS code comments. This is hosted on SharePoint. It must be manually re-generated when the code changes, and then uploaded to SharePoint.",
-    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Programming%20documentation/html-1.0/index.aspx",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Programming%20documentation/html-1.2/index.aspx",
     "group": "code"
   },
   {
@@ -64,23 +57,16 @@
   },
   {
     "id": "insight-studies",
-    "name": "Insight - studies",
+    "name": "🧠 Insight - studies",
     "description": "Martijn's insight app.",
     "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/insight/studies.aspx",
     "group": "insight"
   },
   {
     "id": "insight-tlfs",
-    "name": "Insight - TLF bundles",
+    "name": "⚙ Insight - TLF bundles",
     "description": "Martijn's insight app.",
     "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Final%20TLF%20bundles/folder_tree.aspx",
-    "group": "insight"
-  },
-  {
-    "id": "insight-ae",
-    "name": "Insight - AEs",
-    "description": "Martijn's insight app.",
-    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/insight/ae.aspx",
     "group": "insight"
   },
   {
@@ -124,5 +110,19 @@
     "description": "You can see a range of examples of graphs & figures here, produced with either SAS or R. You can then copy the code for use in your own work as a starting point.",
     "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Programming%20documentation/codesamples/index.aspx",
     "group": "code"
+  },
+  {
+    "id": "intext",
+    "name": "🧨 In-text Tables",
+    "description": "See relationships between In-text tables, data and actual tables",
+    "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Intext/intext.aspx",
+    "group": "code"
+  },
+  {
+    "id": "dashboard",
+    "name": "Old Dashboard",
+    "description": "Old version of Reporting Event Dashboard.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/jobs/dashboard/dev/output/dashboard.html",
+    "group": "study"
   }
 ]
