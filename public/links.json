@@ -80,7 +80,7 @@
     "id": "log-viewer",
     "name": "🪓 Log viewer",
     "description": "SAS log viewer which can be used to view logs on LSAF.",
-    "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/logviewer/index.html",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/logviewer2/index.html",
     "group": "utils"
   },
   {
@@ -116,6 +116,13 @@
     "name": "🧨 In-text Tables",
     "description": "See relationships between In-text tables, data and actual tables",
     "url": "https://argenxbvba.sharepoint.com/sites/Biostatistics/Intext/intext.aspx",
+    "group": "code"
+  },
+  {
+    "id": "textviewer",
+    "name": "🔰 Text Viewer",
+    "description": "jean-Michel's Text viewer, which is very flexible working with any text files from LSAF, PC or clipboard.",
+    "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/textviewer/index.html",
     "group": "code"
   },
   {
