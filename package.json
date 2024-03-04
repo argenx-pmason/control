@@ -1,8 +1,8 @@
 {
   "name": "control",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/control",
+  "homepage": "/lsaf/filedownload/sdd%3A///general/biostat/tools/control",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
