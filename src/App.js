@@ -19,15 +19,7 @@ import {
   Grid,
   Avatar,
 } from "@mui/material";
-import // DataGridPro,
-// LicenseInfo,
-// GridToolbar,
-// GridRowModes,
-// GridToolbarContainer,
-// GridActionsCellItem,
-// GridRowEditStopReasons,
-// GridToolbarExport,
-"@mui/x-data-grid-pro";
+import "@mui/x-data-grid-pro";
 import { Info, OpenInNew, ZoomIn, ZoomOut, Sort } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -35,19 +27,9 @@ import { getJsonFile } from "./utility";
 import testLinks from "./testLinks.json"; // used for development and testing, but in production the one is taken from public/links.json
 import "./App.css";
 
-// apply the license for data grid
-// LicenseInfo.setLicenseKey(
-//   "369a1eb75b405178b0ae6c2b51263cacTz03MTMzMCxFPTE3MjE3NDE5NDcwMDAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
-// );
-
 function App() {
   const { href } = window.location, // get the URL so we can work out where we are running
     mode = href.startsWith("http://localhost") ? "local" : "remote", // local or remote, which is then used for development and testing
-    // webDavPrefix = "https://xarprod.ondemand.sas.com/lsaf/webdav/repo", // prefix for webdav access to LSAF
-    // fileViewerPrefix =
-    //   "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/fileviewer/index.html?file=",
-    // logViewerPrefix =
-    //   "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/logviewer/index.html",
     handleClickMenu = (event) => {
       setAnchorEl(event.currentTarget);
     },
