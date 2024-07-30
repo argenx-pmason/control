@@ -2,7 +2,7 @@
   "name": "control",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/lsaf/filedownload/sdd%3A///general/biostat/tools/control",
+  "homepage": "/lsaf/webdav/repo/general/biostat/tools/control",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
