@@ -76,11 +76,11 @@ function App() {
   return (
     <div className="App">
       <AppBar position="fixed">
-        <Toolbar variant="dense">
+        <Toolbar variant="dense" sx={{ backgroundColor: "#f7f7f7" }}>
           <Tooltip title="Menu">
             <IconButton
               edge="start"
-              color="inherit"
+              color="info"
               sx={{ mr: 2 }}
               onClick={handleClickMenu}
               aria-label="menu"
@@ -91,13 +91,27 @@ function App() {
               <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Box color="inherit">Control Center</Box>
+          <Box
+            sx={{
+              border: 1,
+              borderRadius: 2,
+              color: "black",
+              fontWeight: "bold",
+              boxShadow: 3,
+              fontSize: 14,
+              height: 23,
+              padding: 0.3,
+            }}
+          >
+            &nbsp;Control Center&nbsp;
+          </Box>
           <Box
             sx={{
               flexGrow: 0.5,
               fontSize: "0.8em",
               textAlign: "right",
               mb: 0.5,
+              color:"#0288d1"
             }}
           >{`${links.length} apps`}</Box>
           <Box sx={{ flexGrow: 1 }}></Box>
@@ -113,7 +127,7 @@ function App() {
           </Tooltip>
           <Tooltip title="Sort by group">
             <IconButton
-              color="inherit"
+              color="error"
               onClick={() => {
                 sort("group");
               }}
@@ -123,7 +137,7 @@ function App() {
           </Tooltip>
           <Tooltip title="Zoom in">
             <IconButton
-              color="inherit"
+              color="info"
               onClick={() => {
                 setWidth(width + 200);
               }}
@@ -133,7 +147,7 @@ function App() {
           </Tooltip>
           <Tooltip title="Zoom out">
             <IconButton
-              color="inherit"
+              color="info"
               onClick={() => {
                 setWidth(Math.max(width - 200, 200));
               }}
@@ -143,7 +157,7 @@ function App() {
           </Tooltip>
           <Tooltip title="Information about this screen">
             <IconButton
-              color="inherit"
+              color="info"
               // sx={{ mr: 2 }}
               onClick={() => {
                 setOpenInfo(true);
