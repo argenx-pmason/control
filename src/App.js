@@ -15,7 +15,9 @@ import {
   CardContent,
   CardMedia,
   CardHeader,
+  Link,
   Button,
+  Chip,
   Grid,
   Avatar,
 } from "@mui/material";
@@ -38,9 +40,10 @@ function App() {
     },
     [anchorEl, setAnchorEl] = useState(null),
     [openInfo, setOpenInfo] = useState(false),
-    [width, setWidth] = useState(400),
+    [width, setWidth] = useState(200),
     [urlPrefix, setUrlPrefix] = useState(null),
     [links, setLinks] = useState([]),
+    [sortedLinks, setSortedLinks] = useState([]),
     sort = (v) => {
       const tempLinks = [...links];
       tempLinks.sort((a, b) => {
@@ -61,6 +64,19 @@ function App() {
       getJsonFile(urlPrefix + "/links.json", setLinks);
     }
   }, [mode, urlPrefix]);
+
+  useEffect(() => {
+    let clonedArray = JSON.parse(JSON.stringify(links));
+    // sort clonedArray by name
+    clonedArray.sort((a, b) => {
+      const aa = a.name.replace(/\p{Emoji}/gu, " "),
+        bb = b.name.replace(/\p{Emoji}/gu, " ");
+      if (aa < bb) return -1;
+      if (aa > bb) return 1;
+      return 0;
+    });
+    setSortedLinks(clonedArray);
+  }, [links]);
 
   // handle removing the html file from the url
   useEffect(() => {
@@ -107,14 +123,14 @@ function App() {
           </Box>
           <Box
             sx={{
-              flexGrow: 0.5,
+              // flexGrow: 0.5,
               fontSize: "0.8em",
               textAlign: "right",
               mb: 0.5,
-              color:"#0288d1"
+              ml: 2,
+              color: "#0288d1",
             }}
           >{`${links.length} apps`}</Box>
-          <Box sx={{ flexGrow: 1 }}></Box>
           <Tooltip title="Sort by url">
             <IconButton
               color="warning"
@@ -155,10 +171,58 @@ function App() {
               <ZoomOut />
             </IconButton>
           </Tooltip>
+
+          <Box sx={{ flexGrow: 1 }}></Box>
+          <Tooltip title="Bookmarklet for viewing LSAF files (drag to favorites bar)">
+            <Link
+              sx={{ ml: 2 }}
+              underline="hover"
+              href="
+    javascript:(/*-- Open a viewer web app using selected item --*/ function(document) {const iframe=document.getElementById('sasLSAF_iframe'),
+    iWindow = iframe.contentWindow,
+    iDocument = iWindow.document,
+    repo=iDocument.querySelector('[aria-label=%22Selected, Workspace%22]') ? 'work' : 'repo',
+    full=repo==='work'?'WORKSPACE':'REPOSITORY',
+    qs=iDocument.getElementById('HLS_LSAF_'+full+'--navLinkInput-inner'),
+    v = qs ? qs.value : null,
+    lastPart = v.split(%27/%27).pop(),
+    type=lastPart.split(%27.%27).pop(),
+    { href, protocol, host } = window.location,
+    urlPrefix = protocol + %27//%27 + host,
+    filelink=urlPrefix+%27/lsaf/webdav/%27+repo+v;
+    if (lastPart==='documents') open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/dashstudy/index.html?file=%27+v+'/meta/dashstudy.json');
+    else if (lastPart.split(%27.%27).length===1) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=%27+v);
+    else if (type===%27log%27) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/logviewer/index.html?log=%27+filelink);
+    else if (type==='json') open(urlPrefix+'/lsaf/webdav/repo/general/biostat/tools/view/index.html?lsaf='+v);
+    else open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=%27+filelink);})(document);
+    "
+            >
+              🔍
+            </Link>
+          </Tooltip>
+          <Tooltip title="Switch between location in Workspace and Repository (drag to favorites bar)">
+            <Link
+              sx={{ ml: 2 }}
+              underline="hover"
+              href="javascript:(/*-- Switch between LSAF Repository and Workspace locations --*/ function(){const iframe=document.getElementById(%22sasLSAF_iframe%22),iWindow=iframe.contentWindow,iDocument=iWindow.document,repo=iDocument.querySelector(%27[aria-label=%22Selected, Workspace%22]%27)?%22work%22:%22repo%22,full=%22work%22===repo?%22WORKSPACE%22:%22REPOSITORY%22,qs=iDocument.getElementById(%22HLS_LSAF_%22+full+%22--navLinkInput-inner%22),full2=%22work%22===repo?%22REPOSITORY%22:%22WORKSPACE%22,qs2=iDocument.getElementById(%22HLS_LSAF_%22+full2+%22--navLinkInput-inner%22),wrk=iDocument.getElementById(%22sasLSAF--sasLSAF_appContainer_lfn_4_icn%22),wrk2=%22true%22===iDocument.getElementById(%22sasLSAF--sasLSAF_appContainer_lfn_4%22).getAttribute(%22aria-selected%22),rp=iDocument.getElementById(%22sasLSAF--sasLSAF_appContainer_lfn_3_icn%22),rp2=%22true%22===iDocument.getElementById(%22sasLSAF--sasLSAF_appContainer_lfn_3%22).getAttribute(%22aria-selected%22),current=qs.value;wrk2&&rp.click(),rp2&&wrk.click(),qs2.value=current,qs2.dispatchEvent(keyboardEvent=new KeyboardEvent(%22keydown%22,{code:%22Enter%22,key:%22Enter%22,charCode:13,keyCode:13,view:window,bubbles:!0})),setTimeout((()=>{const e=iDocument.querySelectorAll(%27[aria-selected=%22true%22]%27);console.log(%22sel%22,e),e[2].scrollIntoViewIfNeeded()}),2e3);}());"
+              ICON="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB+klEQVQ4jX2SPU8VURCGnzl7ztmzC0ZiwCB+xKCABTHU/ggrxcTSgsLSQqPewkJNtCKxM8TCmoIfYCyoKCyMhQGMsTPE3MLg9e7H3d2xAK8X8DLJVPPOk3lnRlRVGBJzz1hUeDusLrBphxUBImG9UiqBdIjkojkO8PkROwaWgHLoFIMWZl7h+cllgPJ3h7IsKTsd3Gg87Vx63RgTwkg6jci1/ZbdAxbcL05Vhk+oGht76qbGxJ7ubpcia9Mriub83NxqSEf6PQcs7I/8TkSInCNOkoFMcXEwWjf5YM+RHSjcAd3oQ9J0PxPiNKEsi1WgD5HZp3qrqWtf5jl5llPmOb0iN877BYmYGps43RbM3SLLKLOMuinmx89cmAVWAGsVWmLMvPUOV9doU6NNRdHtUuQZ1LI2fu4scZIgQNVzbD1m7dIL3puSBWuUZRVZiawjDgNGFBSlof4uIkTWEicJJi4A+PqAXWDdbLZ4g3JPRNqRc/gQ8CHBJ4E4JPSK4iOwLiIYa/Fu9MDODMBWi+UTE0xVRibF+qt7kL10cdo0hhsqrIpIdXjp/T/4sEQF/Jh+DlZc34kxhi8PaQOLV14yenKM/L+Av/FthvbstuxY5yZRRey/S2/ep3NYf/QPbtKo8kREsN4TQjgsOR4AsN3itcJtEdmQyHWPA/wBGZyw943uVMMAAAAASUVORK5CYII="
+            >
+              🔁
+            </Link>
+          </Tooltip>
+          <Tooltip title="Prompt the user and search SharePoint for something (drag to favorites bar)">
+            <Link
+              sx={{ ml: 2 }}
+              underline="hover"
+              href="javascript:void(/*-- Prompt user and search SharePoint --*/ window.open('https://argenxbvba.sharepoint.com/sites/Biostatistics/_layouts/15/search.aspx/siteall?q='+prompt ('Search SharePoint:')));"
+            >
+              SP🤓
+            </Link>
+          </Tooltip>
           <Tooltip title="Information about this screen">
             <IconButton
               color="info"
-              // sx={{ mr: 2 }}
+              sx={{ ml: 2 }}
               onClick={() => {
                 setOpenInfo(true);
               }}
@@ -169,6 +233,21 @@ function App() {
         </Toolbar>
       </AppBar>
       <Grid container direction={"row"} spacing={2} sx={{ mt: 6, ml: 0.5 }}>
+        <Grid item key={"grid-chips"}>
+          {links.map((t, id) => (
+            <Tooltip key={"tt" + id} title={t.description}>
+              <Chip
+                key={"chip" + id}
+                label={t.name}
+                size="small"
+                onClick={() => {
+                  window.open(t.url, "_blank").focus();
+                }}
+                style={{ margin: 2 }}
+              />
+            </Tooltip>
+          ))}
+        </Grid>
         {links.map((t, id) => (
           <Grid item key={"grid-item-" + id}>
             <Card
@@ -247,7 +326,7 @@ function App() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {links.map((t, id) => (
+        {sortedLinks.map((t, id) => (
           <MenuItem key={"menuItem" + id} onClick={handleCloseMenu}>
             <Tooltip key={"tt" + id}>
               <Box
