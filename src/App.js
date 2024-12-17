@@ -75,6 +75,7 @@ function App() {
       if (aa > bb) return 1;
       return 0;
     });
+    console.log("sorted", clonedArray);
     setSortedLinks(clonedArray);
   }, [links]);
 
@@ -155,7 +156,7 @@ function App() {
             <IconButton
               color="info"
               onClick={() => {
-                setWidth(width + 200);
+                setWidth(width + 100);
               }}
             >
               <ZoomIn />
@@ -165,7 +166,7 @@ function App() {
             <IconButton
               color="info"
               onClick={() => {
-                setWidth(Math.max(width - 200, 200));
+                setWidth(Math.max(width - 100, 100));
               }}
             >
               <ZoomOut />
@@ -234,7 +235,7 @@ function App() {
       </AppBar>
       <Grid container direction={"row"} spacing={2} sx={{ mt: 6, ml: 0.5 }}>
         <Grid item key={"grid-chips"}>
-          {links.map((t, id) => (
+          {sortedLinks.map((t, id) => (
             <Tooltip key={"tt" + id} title={t.description}>
               <Chip
                 key={"chip" + id}
@@ -294,7 +295,7 @@ function App() {
                 <p>no image</p>
               )}
               <CardContent>
-                <Box sx={{ fontSize: 10 + 2 * (width / 200) }}>
+                <Box sx={{ fontSize: 10 + 2 * (width / 100) }}>
                   {t.description}
                 </Box>
               </CardContent>
