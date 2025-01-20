@@ -22,6 +22,7 @@ import {
   Avatar,
 } from "@mui/material";
 import "@mui/x-data-grid-pro";
+import { Masonry } from "@mui/lab";
 import { Info, OpenInNew, ZoomIn, ZoomOut, Sort } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -44,6 +45,7 @@ function App() {
     [urlPrefix, setUrlPrefix] = useState(null),
     [links, setLinks] = useState([]),
     [sortedLinks, setSortedLinks] = useState([]),
+    [columns, setColumns] = useState(6),
     sort = (v) => {
       const tempLinks = [...links];
       tempLinks.sort((a, b) => {
@@ -52,7 +54,13 @@ function App() {
         return 0;
       });
       setLinks(tempLinks);
-    };
+    },
+    defaultColumns = localStorage.getItem("columns");
+
+  // do once
+  useEffect(() => {
+    if (defaultColumns) setColumns(parseInt(defaultColumns));
+  }, [defaultColumns]);
 
   // load links from json file
   useEffect(() => {
@@ -157,6 +165,8 @@ function App() {
               color="info"
               onClick={() => {
                 setWidth(width + 100);
+                setColumns(columns + 1);
+                localStorage.setItem("columns", columns + 1);
               }}
             >
               <ZoomIn />
@@ -167,12 +177,14 @@ function App() {
               color="info"
               onClick={() => {
                 setWidth(Math.max(width - 100, 100));
+                setColumns(Math.max(columns - 1, 1));
+                localStorage.setItem("columns", Math.max(columns - 1, 1));
               }}
             >
               <ZoomOut />
             </IconButton>
           </Tooltip>
-
+          <Box sx={{ color: "black" }}>Click for PROD, CTRL-click for VAL</Box>
           <Box sx={{ flexGrow: 1 }}></Box>
           <Tooltip title="Bookmarklet for viewing LSAF files (drag to favorites bar)">
             <Link
@@ -191,11 +203,11 @@ function App() {
     { href, protocol, host } = window.location,
     urlPrefix = protocol + %27//%27 + host,
     filelink=urlPrefix+%27/lsaf/webdav/%27+repo+v;
-    if (lastPart==='documents') open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/dashstudy/index.html?file=%27+v+'/meta/dashstudy.json');
-    else if (lastPart.split(%27.%27).length===1) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=%27+v);
-    else if (type===%27log%27) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/logviewer/index.html?log=%27+filelink);
-    else if (type==='json') open(urlPrefix+'/lsaf/webdav/repo/general/biostat/tools/view/index.html?lsaf='+v);
-    else open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=%27+filelink);})(document);
+    if (lastPart==='documents') open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/apps/dashstudy/index.html?file=%27+v+'/meta/dashstudy.json');
+    else if (lastPart.split(%27.%27).length===1) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/apps/fileviewer/index.html?file=%27+v);
+    else if (type===%27log%27) open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/apps/logviewer/index.html?log=%27+filelink);
+    else if (type==='json') open(urlPrefix+'/lsaf/webdav/repo/general/biostat/apps/view/index.html?lsaf='+v);
+    else open(urlPrefix+%27/lsaf/webdav/repo/general/biostat/apps/fileviewer/index.html?file=%27+filelink);})(document);
     "
             >
               🔍
@@ -233,7 +245,7 @@ function App() {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <Grid container direction={"row"} spacing={2} sx={{ mt: 6, ml: 0.5 }}>
+      <Box sx={{ mt: 6, ml: 0.5 }}>
         <Grid item key={"grid-chips"}>
           {sortedLinks.map((t, id) => (
             <Tooltip key={"tt" + id} title={t.description}>
@@ -241,82 +253,113 @@ function App() {
                 key={"chip" + id}
                 label={t.name}
                 size="small"
-                onClick={() => {
-                  window.open(t.url, "_blank").focus();
+                onClick={(e) => {
+                  let url = t.url;
+                  if (e.ctrlKey) url = t.url.replace("xarprod", "xarval");
+                  window.open(url, "_blank").focus();
                 }}
                 style={{ margin: 2 }}
               />
             </Tooltip>
           ))}
         </Grid>
-        {links.map((t, id) => (
-          <Grid item key={"grid-item-" + id}>
-            <Card
-              sx={{ minWidth: { width }, maxWidth: { width } }}
-              key={"card" + id}
-              raised={true}
-            >
-              <CardHeader
-                avatar={
-                  /\p{Emoji}/u.test(t.name) ? (
-                    <Box sx={{ fontSize: 22 }}>{t.name.substring(0, 2)}</Box>
-                  ) : (
-                    <Avatar sx={{ bgcolor: green[200], fontSize: 14 }}>
-                      {t.id
-                        ? t.id
-                            .split("-")
-                            .map((b) => b.substring(0, 1).toUpperCase())
-                            .join("")
-                        : "?"}
-                    </Avatar>
-                  )
-                }
-                title={/\p{Emoji}/u.test(t.name) ? t.name.substring(2) : t.name}
-                action={
-                  <Tooltip title="Open in new tab">
-                    <IconButton
-                      onClick={() => {
+        {/* <Grid container direction={"row"} spacing={2} sx={{ mt: 6, ml: 0.5 }}> */}
+        <Masonry spacing={2} columns={columns}>
+          {links.map((t, id) => (
+            <Grid item key={"grid-item-" + id}>
+              <Card
+                // sx={{ minWidth: { width }, maxWidth: { width } }}
+                key={"card" + id}
+                raised={true}
+              >
+                <CardHeader
+                  avatar={
+                    /\p{Emoji}/u.test(t.name) ? (
+                      <Box sx={{ fontSize: 22 }}>{t.name.substring(0, 2)}</Box>
+                    ) : (
+                      <Avatar sx={{ bgcolor: green[200], fontSize: 14 }}>
+                        {t.id
+                          ? t.id
+                              .split("-")
+                              .map((b) => b.substring(0, 1).toUpperCase())
+                              .join("")
+                          : "?"}
+                      </Avatar>
+                    )
+                  }
+                  title={
+                    /\p{Emoji}/u.test(t.name) ? t.name.substring(2) : t.name
+                  }
+                  action={
+                    <Tooltip title="Open in new tab">
+                      <IconButton
+                        onClick={(e) => {
+                          let url = t.url;
+                          if (e.ctrlKey)
+                            url = t.url.replace("xarprod", "xarval");
+                          window.open(url, "_blank").focus();
+                        }}
+                      >
+                        <OpenInNew />
+                      </IconButton>
+                    </Tooltip>
+                  }
+                />
+                {t.id ? (
+                  <CardMedia
+                    component="img"
+                    title={`Screen shot of ${t.name}`}
+                    alt="Screen shot NOT FOUND"
+                    src={urlPrefix + "/img/" + t.id + ".png"}
+                  />
+                ) : (
+                  <p>no image</p>
+                )}
+                <CardContent>
+                  <Box sx={{ fontSize: 10 + 2 * (width / 100) }}>
+                    {t.description}
+                  </Box>
+                </CardContent>
+                <CardActions>
+                  {t.url.includes("sharepoint.com") ? (
+                    <Button
+                      onClick={(e) => {
                         window.open(t.url, "_blank").focus();
                       }}
                     >
-                      <OpenInNew />
-                    </IconButton>
-                  </Tooltip>
-                }
-              />
-              {t.id ? (
-                <CardMedia
-                  component="img"
-                  title={`Screen shot of ${t.name}`}
-                  alt="Screen shot NOT FOUND"
-                  src={urlPrefix + "/img/" + t.id + ".png"}
-                />
-              ) : (
-                <p>no image</p>
-              )}
-              <CardContent>
-                <Box sx={{ fontSize: 10 + 2 * (width / 100) }}>
-                  {t.description}
-                </Box>
-              </CardContent>
-              <CardActions>
-                <Button
-                  onClick={() => {
-                    window.open(t.url, "_blank").focus();
-                  }}
-                >
-                  Open
-                </Button>
-                <Box sx={{ flex: 1 }}></Box>
-                <Box>
-                  Group:
-                  <b> {t.group}</b>
-                </Box>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                      SharePoint
+                    </Button>
+                  ) : (
+                    <Box>
+                      <Button
+                        onClick={(e) => {
+                          window.open(t.url, "_blank").focus();
+                        }}
+                      >
+                        Prod
+                      </Button>
+                      <Button
+                        onClick={(e) => {
+                          let url = t.url.replace("xarprod", "xarval");
+                          window.open(url, "_blank").focus();
+                        }}
+                      >
+                        Val
+                      </Button>
+                    </Box>
+                  )}
+                  <Box sx={{ flex: 1 }}></Box>
+                  <Box>
+                    Group:
+                    <b> {t.group}</b>
+                  </Box>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Masonry>
+        {/* </Grid> */}
+      </Box>
       {/* Menu */}
       <Menu
         anchorEl={anchorEl}
@@ -334,8 +377,10 @@ function App() {
                 color={"success"}
                 size="small"
                 variant="outlined"
-                onClick={() => {
-                  window.open(t.url, "_blank").focus();
+                onClick={(e) => {
+                  let url = t.url;
+                  if (e.ctrlKey) url = t.url.replace("xarprod", "xarval");
+                  window.open(url, "_blank").focus();
                   // handleCloseMenu();
                 }}
                 // sx={{ mb: 1 }}
@@ -359,12 +404,21 @@ function App() {
             <li>
               Data comes from:{" "}
               <a
-                href="https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/fileviewer/index.html?file=https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/control/links.json"
+                href="https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/apps/fileviewer/index.html?file=/general/biostat/apps/control/links.json"
                 target="_blank"
                 rel="noreferrer"
               >
                 links.json
               </a>
+            </li>
+            <li>
+              Most of the links will open an app in LSAF, but some open it in
+              SharePoint.
+            </li>
+            <li>
+              Clicking a link will open the app in LSAF PROD (if available) by
+              default. Holding down the control key while clicking will open the
+              app on VAL (if available)
             </li>
           </ul>
           <Tooltip title={"Email technical programmers"}>
