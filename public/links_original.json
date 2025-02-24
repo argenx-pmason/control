@@ -59,7 +59,14 @@
         "id": "gadam-compare",
         "name": "🧩 GADAM vs. Study Compare",
         "description": "List of available gadam vs study compares and currently active cro oversight folders.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/apps/gadam_vs_study/gadam_vs_study_compares_summary.html",
+        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/gadam_vs_study/gadam_vs_study_compares_summary.html",
+        "group": "gadam"
+    },
+    {
+        "id": "gadam-datasets",
+        "name": "🎳 GADAM Datasets Refresh Report",
+        "description": "gADaM Datasets Refresh Report X-IND.",
+        "url": "https://xarprod.ondemand.sas.com:8000/lsaf/filedownload/sdd%3A///general/biostat/gadam/documents/gadam_dshb/gadam_rebuild_adam/gadam_rebuild_adam_report.html",
         "group": "gadam"
     },
     {
@@ -94,7 +101,7 @@
         "id": "lsaf-sync",
         "name": "🐛 LSAF sync",
         "description": "Analysis of people using the LSAF sync app. Shows what they have synced from LSAF to their PC.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/apps/lsafsync/app/index.html",
+        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/lsafsync/app/index.html",
         "group": "study"
     },
     {
@@ -143,7 +150,7 @@
         "id": "search-tools",
         "name": "🔍 Search Tools",
         "description": "This displays the available search tools for TLF programs, outputs, ADaM datasets and SVG graphics.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/apps/search_tools.html",
+        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/search_tools.html",
         "group": "study"
     },
     {
@@ -178,7 +185,7 @@
         "id": "study-dashboard",
         "name": "🦙 Study Dashboard",
         "description": "This is the dashboard for a specific study, but you can navigate to other studies from here.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/apps/dashstudy/index.html",
+        "url": "https://xarprod.ondemand.sas.com:8000/lsaf/filedownload/sdd%3A///general/biostat/apps/dashstudy/index.html?file=/clinical/argx-113/x-ind/argx-113-0000/biostat/staging/other/documents/meta/dashstudy.json",
         "group": "study"
     },
     {
@@ -206,14 +213,14 @@
         "id": "textviewer",
         "name": "🔰 Text Viewer",
         "description": "jean-Michel's Text viewer, which is very flexible working with any text files from LSAF, PC or clipboard.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/apps/textviewer/index.html",
+        "url": "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/tools/textviewer/index.html",
         "group": "code"
     },
     {
         "id": "view",
         "name": "🎯 View",
         "description": "View (& edit) JSON files.",
-        "url": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/apps/view/index.html?lsaf=/general/biostat/jobs/dashboard/dev/metadata/all.json&key=report1&title=🎯%20Demo",
+        "url": "https://xarprod.ondemand.sas.com:8000/lsaf/filedownload/sdd%3A///general/biostat/apps/view/index.html?lsaf=/general/biostat/metadata/projects/projectsmeta.json&meta=/general/biostat/apps/view/projectsmeta.json&title=%F0%9F%9B%A0%20ProjectsMeta",
         "group": "utils"
     }
   ]

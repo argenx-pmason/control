@@ -420,6 +420,27 @@ function App() {
               default. Holding down the control key while clicking will open the
               app on VAL (if available)
             </li>
+            <li>
+              The things that are shown in Control are defined in{" "}
+              <i>/general/biostat/apps/control/links.json</i>, e.g.
+            </li>
+            <code>
+              "id": "backups",
+              <br />
+              "name": "🧻 Backups",
+              <br />
+              "description": "View the files that are backed up each day.",
+              <br />
+              "url":
+              "https://xarprod.ondemand.sas.com/lsaf/webdav/repo/general/biostat/apps/view/index.html?lsaf=/general/biostat/apps/backups/backups.json&meta=/general/biostat/apps/backups/backups_meta.json&title=🧻%20Backups",
+              <br />
+              "group": "code"
+            </code>
+            <li>
+              And there should be a screen shot for each link in
+              /general/biostat/apps/control/img, which uses the id with a png
+              suffix. e.g. <i>/general/biostat/apps/control/img/backups.png</i>
+            </li>
           </ul>
           <Tooltip title={"Email technical programmers"}>
             <Button
