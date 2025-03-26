@@ -19,6 +19,7 @@ import {
   Button,
   Chip,
   Grid,
+  Switch,
   Avatar,
 } from "@mui/material";
 import "@mui/x-data-grid-pro";
@@ -46,6 +47,7 @@ function App() {
     [links, setLinks] = useState([]),
     [sortedLinks, setSortedLinks] = useState([]),
     [columns, setColumns] = useState(6),
+    [showAll, setShowAll] = useState(false),
     sort = (v) => {
       const tempLinks = [...links];
       tempLinks.sort((a, b) => {
@@ -139,7 +141,7 @@ function App() {
               ml: 2,
               color: "#0288d1",
             }}
-          >{`${links.length} apps`}</Box>
+          >{`${links.filter((t) => showAll || t.show).length} apps`}</Box>
           <Tooltip title="Sort by url">
             <IconButton
               color="warning"
@@ -159,6 +161,17 @@ function App() {
             >
               <Sort />
             </IconButton>
+          </Tooltip>
+          <Tooltip title="Switch between showing everything and just the general apps">
+            <Switch
+              color="primary"
+              checked={showAll}
+              onChange={() => {
+                setShowAll(!showAll);
+              }}
+            >
+              <Sort />
+            </Switch>
           </Tooltip>
           <Tooltip title="Zoom in">
             <IconButton
@@ -247,116 +260,126 @@ function App() {
       </AppBar>
       <Box sx={{ mt: 6, ml: 0.5 }}>
         <Grid item key={"grid-chips"}>
-          {sortedLinks.map((t, id) => (
-            <Tooltip key={"tt" + id} title={t.description}>
-              <Chip
-                key={"chip" + id}
-                label={t.name}
-                size="small"
-                onClick={(e) => {
-                  let url = t.url;
-                  if (e.ctrlKey) url = t.url.replace("xarprod", "xarval");
-                  window.open(url, "_blank").focus();
-                }}
-                style={{ margin: 2 }}
-              />
-            </Tooltip>
-          ))}
+          {sortedLinks.map((t, id) => {
+            if (showAll || t.show)
+              return (
+                <Tooltip key={"tt" + id} title={t.description}>
+                  <Chip
+                    key={"chip" + id}
+                    label={t.name}
+                    size="small"
+                    onClick={(e) => {
+                      let url = t.url;
+                      if (e.ctrlKey) url = t.url.replace("xarprod", "xarval");
+                      window.open(url, "_blank").focus();
+                    }}
+                    style={{ margin: 2 }}
+                  />
+                </Tooltip>
+              );
+            else return null;
+          })}
         </Grid>
         {/* <Grid container direction={"row"} spacing={2} sx={{ mt: 6, ml: 0.5 }}> */}
         <Masonry spacing={2} columns={columns}>
-          {links.map((t, id) => (
-            <Grid item key={"grid-item-" + id}>
-              <Card
-                // sx={{ minWidth: { width }, maxWidth: { width } }}
-                key={"card" + id}
-                raised={true}
-              >
-                <CardHeader
-                  avatar={
-                    /\p{Emoji}/u.test(t.name) ? (
-                      <Box sx={{ fontSize: 22 }}>{t.name.substring(0, 2)}</Box>
+          {links.map((t, id) => {
+            if (showAll || t.show)
+              return (
+                <Grid item key={"grid-item-" + id}>
+                  <Card
+                    // sx={{ minWidth: { width }, maxWidth: { width } }}
+                    key={"card" + id}
+                    raised={true}
+                  >
+                    <CardHeader
+                      avatar={
+                        /\p{Emoji}/u.test(t.name) ? (
+                          <Box sx={{ fontSize: 22 }}>
+                            {t.name.substring(0, 2)}
+                          </Box>
+                        ) : (
+                          <Avatar sx={{ bgcolor: green[200], fontSize: 14 }}>
+                            {t.id
+                              ? t.id
+                                  .split("-")
+                                  .map((b) => b.substring(0, 1).toUpperCase())
+                                  .join("")
+                              : "?"}
+                          </Avatar>
+                        )
+                      }
+                      title={
+                        /\p{Emoji}/u.test(t.name) ? t.name.substring(2) : t.name
+                      }
+                      action={
+                        <Tooltip title="Open in new tab">
+                          <IconButton
+                            onClick={(e) => {
+                              let url = t.url;
+                              if (e.ctrlKey)
+                                url = t.url.replace("xarprod", "xarval");
+                              window.open(url, "_blank").focus();
+                            }}
+                          >
+                            <OpenInNew />
+                          </IconButton>
+                        </Tooltip>
+                      }
+                    />
+                    {t.id ? (
+                      <CardMedia
+                        component="img"
+                        title={`Screen shot of ${t.name}`}
+                        alt="Screen shot NOT FOUND"
+                        src={urlPrefix + "/img/" + t.id + ".png"}
+                      />
                     ) : (
-                      <Avatar sx={{ bgcolor: green[200], fontSize: 14 }}>
-                        {t.id
-                          ? t.id
-                              .split("-")
-                              .map((b) => b.substring(0, 1).toUpperCase())
-                              .join("")
-                          : "?"}
-                      </Avatar>
-                    )
-                  }
-                  title={
-                    /\p{Emoji}/u.test(t.name) ? t.name.substring(2) : t.name
-                  }
-                  action={
-                    <Tooltip title="Open in new tab">
-                      <IconButton
-                        onClick={(e) => {
-                          let url = t.url;
-                          if (e.ctrlKey)
-                            url = t.url.replace("xarprod", "xarval");
-                          window.open(url, "_blank").focus();
-                        }}
-                      >
-                        <OpenInNew />
-                      </IconButton>
-                    </Tooltip>
-                  }
-                />
-                {t.id ? (
-                  <CardMedia
-                    component="img"
-                    title={`Screen shot of ${t.name}`}
-                    alt="Screen shot NOT FOUND"
-                    src={urlPrefix + "/img/" + t.id + ".png"}
-                  />
-                ) : (
-                  <p>no image</p>
-                )}
-                <CardContent>
-                  <Box sx={{ fontSize: 10 + 2 * (width / 100) }}>
-                    {t.description}
-                  </Box>
-                </CardContent>
-                <CardActions>
-                  {t.url.includes("sharepoint.com") ? (
-                    <Button
-                      onClick={(e) => {
-                        window.open(t.url, "_blank").focus();
-                      }}
-                    >
-                      SharePoint
-                    </Button>
-                  ) : (
-                    <Box>
-                      <Button
-                        onClick={(e) => {
-                          window.open(t.url, "_blank").focus();
-                        }}
-                      >
-                        Prod
-                      </Button>
-                      <Button
-                        onClick={(e) => {
-                          let url = t.url.replace("xarprod", "xarval");
-                          window.open(url, "_blank").focus();
-                        }}
-                      >
-                        Val
-                      </Button>
-                    </Box>
-                  )}
-                  <Box sx={{ flex: 1 }}></Box>
-                  <Box>
-                    Group:
-                    <b> {t.group}</b>
-                  </Box>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                      <p>no image</p>
+                    )}
+                    <CardContent>
+                      <Box sx={{ fontSize: 10 + 2 * (width / 100) }}>
+                        {t.description}
+                      </Box>
+                    </CardContent>
+                    <CardActions>
+                      {t.url.includes("sharepoint.com") ? (
+                        <Button
+                          onClick={(e) => {
+                            window.open(t.url, "_blank").focus();
+                          }}
+                        >
+                          SharePoint
+                        </Button>
+                      ) : (
+                        <Box>
+                          <Button
+                            onClick={(e) => {
+                              window.open(t.url, "_blank").focus();
+                            }}
+                          >
+                            Prod
+                          </Button>
+                          <Button
+                            onClick={(e) => {
+                              let url = t.url.replace("xarprod", "xarval");
+                              window.open(url, "_blank").focus();
+                            }}
+                          >
+                            Val
+                          </Button>
+                        </Box>
+                      )}
+                      <Box sx={{ flex: 1 }}></Box>
+                      <Box>
+                        Group:
+                        <b> {t.group}</b>
+                      </Box>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            else return null;
+          })}
         </Masonry>
         {/* </Grid> */}
       </Box>
