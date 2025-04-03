@@ -177,9 +177,9 @@ function App() {
             <IconButton
               color="info"
               onClick={() => {
-                setWidth(width + 100);
-                setColumns(columns + 1);
-                localStorage.setItem("columns", columns + 1);
+                setWidth(Math.max(width - 100, 100));
+                setColumns(Math.max(columns - 1, 1));
+                localStorage.setItem("columns", Math.max(columns - 1, 1));
               }}
             >
               <ZoomIn />
@@ -189,9 +189,9 @@ function App() {
             <IconButton
               color="info"
               onClick={() => {
-                setWidth(Math.max(width - 100, 100));
-                setColumns(Math.max(columns - 1, 1));
-                localStorage.setItem("columns", Math.max(columns - 1, 1));
+                setWidth(width + 100);
+                setColumns(columns + 1);
+                localStorage.setItem("columns", columns + 1);
               }}
             >
               <ZoomOut />
